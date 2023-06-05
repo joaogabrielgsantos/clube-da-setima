@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model addresses {
+  id            Int         @id(map: "addresses_pk") @default(autoincrement())
+  cep           String      @db.VarChar(120)
+  street        String      @db.VarChar(120)
+  city          String      @db.VarChar(120)
+  state         String      @db.VarChar(120)
+  number        String      @db.VarChar(10)
+  neighbourhood String      @db.VarChar(120)
+  addressDetail String      @db.VarChar(120)
+  enrollmentId  Int
+  createdAt     DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  updatedAt     DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  enrollments   enrollments @relation(fields: [enrollmentId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "addresses_fk0")
+}
+
+model enrollments {
+  id        Int         @id(map: "enrollments_pk") @default(autoincrement())
+  name      String      @db.VarChar(120)
+  nickname  String      @db.VarChar(120)
+  birthday  DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  userId    Int
+  createdAt DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  updatedAt DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  addresses addresses[]
+  users     users       @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "enrollments_fk0")
+}
+
+model keys {
+  id                       Int       @id(map: "keys_pk") @default(autoincrement())
+  name                     String
+  userId                   Int
+  createdAt                DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  updatedAt                DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  users_keys_userIdTousers users     @relation("keys_userIdTousers", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "keys_fk0")
+  users_users_keyIdTokeys  users[]   @relation("users_keyIdTokeys")
+}
+
+model sessions {
+  id         Int       @id(map: "sessions_pk") @default(autoincrement())
+  userId     Int
+  token      String
+  creadtedAt DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  updatedAt  DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  users      users     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "sessions_fk0")
+}
+
+model types {
+  id        Int       @id(map: "types_pk") @default(autoincrement())
+  name      String    @db.VarChar(120)
+  createdAt DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  updatedAt DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  users     users[]
+}
+
+model users {
+  id                      Int           @id(map: "users_pk") @default(autoincrement())
+  email                   String        @unique @db.VarChar(120)
+  password                String        @db.VarChar(120)
+  typeId                  Int           @default(1)
+  keyId                   Int
+  createdAt               DateTime?     @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  updatedAt               DateTime?     @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  enrollments             enrollments[]
+  keys_keys_userIdTousers keys[]        @relation("keys_userIdTousers")
+  sessions                sessions[]
+  types                   types         @relation(fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk0")
+  keys_users_keyIdTokeys  keys          @relation("users_keyIdTokeys", fields: [keyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk1")
+}
