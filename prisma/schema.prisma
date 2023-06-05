@@ -36,10 +36,11 @@ model enrollments {
 
 model keys {
   id                       Int       @id(map: "keys_pk") @default(autoincrement())
-  name                     String
+  name                     String    @unique
   userId                   Int
   createdAt                DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   updatedAt                DateTime? @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
+  isValid                  Boolean
   users_keys_userIdTousers users     @relation("keys_userIdTousers", fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "keys_fk0")
   users_users_keyIdTokeys  users[]   @relation("users_keyIdTokeys")
 }
@@ -66,12 +67,12 @@ model users {
   email                   String        @unique @db.VarChar(120)
   password                String        @db.VarChar(120)
   typeId                  Int           @default(1)
-  keyId                   Int
+  keyId                   Int?
   createdAt               DateTime?     @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   updatedAt               DateTime?     @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   enrollments             enrollments[]
   keys_keys_userIdTousers keys[]        @relation("keys_userIdTousers")
   sessions                sessions[]
   types                   types         @relation(fields: [typeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk0")
-  keys_users_keyIdTokeys  keys          @relation("users_keyIdTokeys", fields: [keyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk1")
+  keys_users_keyIdTokeys  keys?         @relation("users_keyIdTokeys", fields: [keyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk1")
 }
