@@ -7,3 +7,7 @@ export type User = {
     createdAt: Date
     updatedAt: Date
 }
+
+export type CreateUserParams = Pick <User, 'email' | 'password' > & {
+    key: string;
+};
