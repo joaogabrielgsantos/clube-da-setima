@@ -11,21 +11,37 @@ async function findAccessKey(key: string): Promise<Key> {
 
 async function findUserByEmail(email: string) {
     return prisma.users.findFirst({
-        where:{
+        where: {
             email
-        }
-    }) 
-}
-
-async function createNewUser(email: string, keyId: number, hashPassword: string) {
-    return prisma.users.create ({
-        data: {
-            email: email,
-            password: hashPassword,
-            keyId: keyId,
-
+        },
+        include: {
+            types: {
+                select: {
+                    id: true,
+                    name: true
+                }
+            }
         }
     })
 }
 
-export default { findAccessKey, findUserByEmail, createNewUser };
+async function createNewUser(email: string, keyId: number, hashPassword: string) {
+    return prisma.users.create({
+        data: {
+            email: email,
+            password: hashPassword,
+            keyId: keyId,
+        }
+    })
+}
+
+async function createSession(token: string, userId: number) {
+    return prisma.sessions.create({
+        data: {
+            token,
+            userId
+        }
+    })
+}
+
+export default { findAccessKey, findUserByEmail, createNewUser, createSession };

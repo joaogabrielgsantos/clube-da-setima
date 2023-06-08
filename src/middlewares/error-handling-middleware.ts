@@ -51,6 +51,12 @@ export function handleApplicationErrors(
     });
   }
 
+  if (err.name === 'InvalidEmailOrPassword') {
+    return res.status(StatusCodes.UNAUTHORIZED).send({
+      message: err.message,
+    });
+  }
+
   res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
     error: 'InternalServerError',
     message: 'Internal Server Error',

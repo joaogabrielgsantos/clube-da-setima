@@ -2,7 +2,7 @@ import { ApplicationError } from '../protocols';
 
 export function forBiddenError(): ApplicationError {
   return {
-    name: 'ForBiddenError',
+    name: 'ForbiddenError',
     message: 'Forbidden Error!',
   };
 }

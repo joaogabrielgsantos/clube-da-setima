@@ -11,3 +11,6 @@ export type User = {
 export type CreateUserParams = Pick <User, 'email' | 'password' > & {
     key: string;
 };
+
+export type ValidateUserParams = Pick <User, 'email' | 'password' >;
+
