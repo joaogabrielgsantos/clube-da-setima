@@ -8,7 +8,7 @@ function Header() {
             <Wrapper>
                 <ContainerA>
                     <Logo>
-                    <Link to="/"><img src="/LOGO-removebg.png" alt="logo" /></Link>
+                    <Link to="/"><img src="/LOGO.png" alt="logo" /></Link>
                     </Logo>
                     <SignWrapper>
                         <Link to="/sign-up"><p>Cadastre-se</p></Link>
