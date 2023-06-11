@@ -1,7 +1,9 @@
-function HomePage (){
+import Header from "../../patterns/Header";
+
+function HomePage() {
     return (
         <>
-        <h1>Home Page</h1>
+            <Header />
         </>
     );
 }
