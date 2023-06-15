@@ -1,7 +1,9 @@
+import { Typography } from "@mui/material";
+
 function SignIn (){
     return (
         <>
-        <h1>Sign-In</h1>
+        <Typography  variant="h1" fontSize={64}>Página de sign-in</Typography>
         </>
     );
 }

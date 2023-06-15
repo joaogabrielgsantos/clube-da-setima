@@ -1,5 +1,6 @@
 import Header from "../../patterns/Header";
 
+
 function HomePage() {
     return (
         <>
