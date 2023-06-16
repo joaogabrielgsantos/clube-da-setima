@@ -23,7 +23,6 @@ export default function SectionA() {
                     </WrapperAll>
                 </Container>
             </WrapperSection>
-
         </>
     )
 }
@@ -36,7 +35,7 @@ height: 70vh;
 padding-top: 150px;
 
 @media (max-width: 1440px) {
-    height: 100vh;    
+    height: 100vh;  
 }
 
 @media (max-width: 800px) {

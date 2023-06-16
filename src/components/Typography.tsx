@@ -15,7 +15,7 @@ font-weight: 300;
 font-size: 24px;
 margin: 15px 0 45px 0;
 @media (max-width: 800px) {
-    font-size: 11px;
+    font-size: 12px;
     width: 100%;
     margin: 10px 0 15px 0;
 } 
