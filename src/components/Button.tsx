@@ -24,7 +24,7 @@ border-radius: 12px;
 @media (max-width: 800px) {
     height: 30px;
     width: ${(props) => props.widthResp || "auto"};
-    font-size: 11px;
+    font-size: 12px;
 } 
 
 
