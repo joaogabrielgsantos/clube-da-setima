@@ -1,13 +1,14 @@
+
 import Header from "../../patterns/Header";
+import SectionA from "./SectionA";
 
 
-function HomePage() {
+
+export default function HomePage() {
     return (
         <>
             <Header />
+            <SectionA /> 
         </>
     );
 }
-
-
-export default HomePage

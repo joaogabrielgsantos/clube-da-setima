@@ -15,7 +15,13 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Mulish, sans-serif'
+    fontFamily: 'Mulish, sans-serif',
+    body1: {
+      fontWeight: 300,
+    },
+    button: {
+      fontWeight: 300,
+    }
   },
   
 });
