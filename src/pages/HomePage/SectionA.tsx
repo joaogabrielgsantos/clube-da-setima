@@ -15,7 +15,7 @@ export default function SectionA() {
                         <TypoWrapper>
                             <MainTitle>Bem-vindos ao clube!</MainTitle>
                             <MainSubtitle>Viva o cinema de forma intensa: discuta, questione, inspire-se.</MainSubtitle>
-                            <OtherLink to="/sign-in">
+                            <OtherLink to="/sign-up">
                                 <Button width="220px" widthResp="120px" styling="primary">Comece agora</Button>
                             </OtherLink>
                         </TypoWrapper>

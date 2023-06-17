@@ -21,7 +21,7 @@ justify-content: center;
 align-items: center;
 input {
     width: 326px;
-    height: 58px;
+    height: 50px;
     border: 1px solid #757575;
     border-radius: 12px;
     padding-left: 15px;
