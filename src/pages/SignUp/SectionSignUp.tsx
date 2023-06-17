@@ -32,7 +32,7 @@ export default function SectionSignUp() {
 
                 <ContainerSignUp>
 
-                    <form onSubmit={handleSignUp}>
+                    <AuthForm onSubmit={handleSignUp}>
                         <Inputs>
                             <input disabled={disable} type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
                             <input disabled={disable} type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
@@ -40,12 +40,13 @@ export default function SectionSignUp() {
                             <input disabled={disable} type="accesskey" placeholder="Chave de acesso" value={accessKey} onChange={e => setAccessKey(e.target.value)} />
                             <SubmitButton disabled={disable} width="326px" widthResp="326px" >{textButton}</SubmitButton >
                         </Inputs>
-                    </form>
-                    <Link to="/sign-in">
+                        <Link to="/sign-in">
                         <LinkWrap>
                             Já tem uma conta? Entre agora!
                         </LinkWrap>
                     </Link>
+                    </AuthForm>
+                    
 
                 </ContainerSignUp>
             </WrapperSection>
@@ -54,7 +55,7 @@ export default function SectionSignUp() {
 }
 
 
-const ContainerSignUp = styled(ContainerWrapper)`
+export const ContainerSignUp = styled(ContainerWrapper)`
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -62,16 +63,14 @@ align-items: center;
 `;
 
 
-const SubmitButton = styled(Button)`
-
+export const SubmitButton = styled(Button)`
 margin-top: 20px;
 @media (max-width: 800px) {
     height: 50px;
 }
-
 `;
 
-const Logo = styled.img`
+export const Logo = styled.img`
 display: block;
     height: 500px;
     width: 100%;
@@ -87,8 +86,18 @@ display: block;
 `;
 
 export const LinkWrap = styled.div`
-margin-top: 10px;
+    margin-top: 10px;
 	text-decoration-line: underline;
     color: #000000;
+`;
+
+const AuthForm= styled.form`
+
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+
 `;
 

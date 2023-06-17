@@ -21,7 +21,7 @@ export default function Header() {
                             <h6>Cadastre-se</h6>
                         </Link>
                         <Link to="/sign-in">
-                            <Button width="170px" widthResp="80px" styling='primary'>Entrar</Button>
+                            <Button width="170px" widthResp="80px" styling='primary'>Faça login</Button>
                         </Link>
                     </AuthWrapper>
                 </Toolbar>
