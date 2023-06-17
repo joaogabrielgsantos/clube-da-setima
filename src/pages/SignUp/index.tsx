@@ -1,8 +1,14 @@
+import Footer from "../../patterns/Footer";
+import Header from "../../patterns/Header";
+import SectionSignUp from "./SectionSignUp";
+
 function SignUp() {
 
     return (
         <>
-            <h1>Página de sign-up</h1>
+            <Header />
+            <SectionSignUp />
+            <Footer />
         </>
     );
 }

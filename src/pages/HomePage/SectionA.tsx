@@ -15,9 +15,9 @@ export default function SectionA() {
                         <TypoWrapper>
                             <MainTitle>Bem-vindos ao clube!</MainTitle>
                             <MainSubtitle>Viva o cinema de forma intensa: discuta, questione, inspire-se.</MainSubtitle>
-                            <Link to="/sign-in">
+                            <OtherLink to="/sign-in">
                                 <Button width="220px" widthResp="120px" styling="primary">Comece agora</Button>
-                            </Link>
+                            </OtherLink>
                         </TypoWrapper>
                         <SideImage src={pipoca} alt="pipoca" />
                     </WrapperAll>
@@ -28,11 +28,10 @@ export default function SectionA() {
 }
 
 
-const WrapperSection = styled.div`
+export const WrapperSection = styled.div`
 display: flex;
 justify-content: center;
 height: 75vh;
-
 `;
 
 const WrapperAll = styled.div`
@@ -48,7 +47,6 @@ const TypoWrapper = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-
 @media (max-width: 1250px) {
     text-align: center;
     align-items: center;
@@ -64,4 +62,10 @@ z-index: -1;
 @media (max-width: 800px) {
     height: 80%;
 } 
+`;
+
+const OtherLink = styled(Link)`
+text-decoration: none;
+
+
 `;

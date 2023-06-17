@@ -1,9 +1,13 @@
-import { Typography } from "@mui/material";
+import SectionSignIn from "./SectionSignIn";
+import Header from "../../patterns/Header";
+import Footer from "../../patterns/Footer";
 
-function SignIn (){
+function SignIn() {
     return (
         <>
-        <Typography  variant="h1" fontSize={64}>Página de sign-in</Typography>
+            <Header />
+            <SectionSignIn />
+            <Footer />
         </>
     );
 }
