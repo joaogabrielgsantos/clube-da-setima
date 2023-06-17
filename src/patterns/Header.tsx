@@ -17,9 +17,9 @@ export default function Header() {
                         </Link>
                     </Typography>
                     <AuthWrapper>
-                        <a href="/sign-up">
+                        <Link to="/sign-up">
                             <h6>Cadastre-se</h6>
-                        </a>
+                        </Link>
                         <Link to="/sign-in">
                             <Button width="170px" widthResp="80px" styling='primary'>Entrar</Button>
                         </Link>
