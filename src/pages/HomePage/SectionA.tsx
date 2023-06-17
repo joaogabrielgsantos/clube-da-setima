@@ -31,17 +31,7 @@ export default function SectionA() {
 const WrapperSection = styled.div`
 display: flex;
 justify-content: center;
-height: 70vh;
-padding-top: 150px;
-
-@media (max-width: 1440px) {
-    height: 100vh;  
-}
-
-@media (max-width: 800px) {
-    padding-top: 100px;
-    height: 60vh;   
-} 
+height: 75vh;
 
 `;
 
@@ -58,10 +48,8 @@ const TypoWrapper = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-margin-top: 60px;
 
-@media (max-width: 1200px) {
-    margin-top: 0;
+@media (max-width: 1250px) {
     text-align: center;
     align-items: center;
     position: absolute;
@@ -72,5 +60,8 @@ const SideImage = styled.img`
 height: 100%;
 object-fit: cover;
 overflow: hidden;
-
+z-index: -1;
+@media (max-width: 800px) {
+    height: 80%;
+} 
 `;

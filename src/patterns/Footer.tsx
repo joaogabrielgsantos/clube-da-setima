@@ -14,25 +14,17 @@ export default function Footer() {
 
 const Wrapper = styled.div`
 width: 100%;
-height: 200px;
+height: 15vh;
 background-color: #000000;
 display: flex;
 justify-content: center;
 align-items: center;
-position: relative;
-bottom: 0;
-
 a {
     color: #ffffff;
     text-decoration: none;
     h2 {
         font-weight: 300;
-        font-size: 14px;
+        font-size: 11px;
     }  
 }
-@media (max-width: 800px) {
-    position: absolute ;
-} 
-
-
 `;

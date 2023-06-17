@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
-        <AppBarHeader position="fixed">
+        <AppBarHeader position='static'>
             <ContainerHeader>
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
