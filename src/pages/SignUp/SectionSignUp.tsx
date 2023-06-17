@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Container, ContainerWrapper } from "../../components/Container";
+import { ContainerWrapper } from "../../components/Container";
 import Inputs from "../../components/Inputs";
 import { WrapperSection } from "../HomePage/SectionA";
 import { Button } from "../../components/Button";
@@ -20,6 +20,8 @@ export default function SectionSignUp() {
 
     function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        setDisable(true);
+        setTextButton("Cadastrando...")
 
     }
 
