@@ -7,8 +7,9 @@ type ButtonProps = {
     disabled?:boolean
   }
 
-export const Button = styled.div<ButtonProps>`
+export const Button = styled.button<ButtonProps>`
 width: ${(props) => props.width || "auto"};
+font-family: Mulish;
 height: 50px;
 color: #ffffff;
 background-color: ${(props) => props.styling === 'primary'? '#5E503F': 'secondary'? '#22333b': '#eae0d5'};
