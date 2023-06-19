@@ -8,9 +8,7 @@ type UserProviderProps = {
   };
 
 export function UserProvider({ children }: UserProviderProps) {
-    const [userData, setUserData] = useLocalStorage<Authenticator | null>('userData', null);
-    console.log(userData);
-    
+    const [userData, setUserData] = useLocalStorage<Authenticator | null>('userData', null);    
     
     return (
       <UserContext.Provider value={{ userData, setUserData }}>

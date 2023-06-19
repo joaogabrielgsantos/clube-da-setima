@@ -37,7 +37,7 @@ export default function SectionSignIn() {
                 .then(response => {
                     const { data } = response
                     setUserData(data)
-                    toast.success('Até aqui deu bom!');
+                    toast.success('Login efetuado com sucesso!');
                     navigate("/private")
                 })
                 .catch(() => {
