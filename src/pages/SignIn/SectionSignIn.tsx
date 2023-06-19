@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Inputs from "../../components/Inputs";
 import { WrapperSection } from "../HomePage/SectionA";
 import LogoClube from '../../assets/LOGO.png';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ContainerSignUp, LinkWrap, Logo, SubmitButton } from "../SignUp/SectionSignUp";
+import { postSignIn } from "../../services/authApi";
+import { toast } from "react-toastify";
+import UserContext from "../../contexts/UserContext";
+
 
 export default function SectionSignIn() {
     const [email, setEmail] = useState('')
@@ -11,10 +15,35 @@ export default function SectionSignIn() {
     const [disable, setDisable] = useState(false)
     const [textButton, setTextButton] = useState("Entrar")
 
+    const { setUserData } = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    function cleanInputs() {
+        setDisable(false);
+        setTextButton("Entrar")
+        setEmail('')
+        setPassword('')
+    }
+
     function handleSignIn(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setDisable(true);
         setTextButton("Entrando...")
+        const body = {
+            email, password
+        }
+        postSignIn(body)
+                .then(response => {
+                    const { data } = response
+                    setUserData(data)
+                    toast.success('Até aqui deu bom!');
+                    navigate("/private")
+                })
+                .catch(() => {
+                    toast.error("Usuário e/ou senha incorretos");
+                    cleanInputs()
+                })
 
     }
 

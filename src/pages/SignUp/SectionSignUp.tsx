@@ -8,7 +8,8 @@ import LogoClube from '../../assets/LOGO.png';
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
-import { postSignUp } from "../../services/api";
+import { postSignUp } from "../../services/authApi";
+
 
 
 export default function SectionSignUp() {
@@ -19,7 +20,6 @@ export default function SectionSignUp() {
     const [key, setKey] = useState<string>('')
     const [disable, setDisable] = useState<boolean>(false)
     const [textButton, setTextButton] = useState<string>("Cadastrar")
-
 
     const navigate = useNavigate();
 
