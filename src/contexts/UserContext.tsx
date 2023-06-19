@@ -1,5 +1,5 @@
 import { createContext, useContext} from "react";
-import { Authenticator } from "../services/ProtectedRoutes";
+import { Authenticator } from "../auth/ProtectedRoutes";
 
 type UserContextType = {
   userData: Authenticator | null;

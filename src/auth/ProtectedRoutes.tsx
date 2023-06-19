@@ -23,7 +23,7 @@ const Auth = (): Authenticator | null => {
 
 const ProtectedRoutes = () => {
   const isAuth = Auth();
-  return isAuth ? <Outlet /> : <Navigate to="/sign-in" replace />;
+  return isAuth ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default ProtectedRoutes;
