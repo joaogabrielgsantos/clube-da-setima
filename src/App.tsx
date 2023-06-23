@@ -9,9 +9,11 @@ import HomePage from './pages/HomePage';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import ProtectedRoutes from './auth/ProtectedRoutes';
-import PrivatePage from './pages/PrivatePage';
 import { UserProvider } from './contexts/UserProvider';
 import ProtectedSignIn from './auth/ProtectedSignIn';
+import MainPage from './pages/MainPage';
+import FilmWeekPage from './pages/FilmWeekPage';
+import SettingsPage from './pages/SettingsPage';
 
 function App() {
 
@@ -28,7 +30,9 @@ function App() {
               <Route path="/sign-in" element={<SignIn />} />
             </Route>
             <Route element={<ProtectedRoutes />}>
-              <Route path="/private" element={<PrivatePage />} />
+              <Route path="/main" element={<MainPage />} />
+              <Route path="/film" element={<FilmWeekPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

@@ -81,8 +81,12 @@ export default function SectionSignUp() {
                                 Já tem uma conta? Entre agora!
                             </LinkWrap>
                         </Link>
+                        <Link to="https://form.jotform.com/231724865593668">
+                            <LinkWrap>
+                                <p>Clique aqui para chave de acesso</p>
+                            </LinkWrap>
+                        </Link>
                     </AuthForm>
-
                 </ContainerSignUp>
             </WrapperSection>
         </>
@@ -124,6 +128,9 @@ export const LinkWrap = styled.div`
     margin-top: 10px;
 	text-decoration-line: underline;
     color: #000000;
+    p {
+        font-size: 11px;
+    }
 `;
 
 const AuthForm = styled.form`
