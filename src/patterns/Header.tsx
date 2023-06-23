@@ -31,21 +31,21 @@ export default function Header() {
 }
 
 const Logo = styled.img`
-width: 270px;
-height: auto;
+width: 220px;
+
 margin-left: -70px;
 @media (max-width: 800px) {
-    width: 150px;
+    width: 140px;
     margin-left: -25px;
 } 
 `;
 const AppBarHeader = styled(AppBar)`
-height: 150px;
+height: 120px;
 display: flex;
 justify-content: center;
 align-items: center;
 @media (max-width: 800px) {
-    height: auto;
+    height: 10vh;
 } 
 `;
 
@@ -73,7 +73,7 @@ h6 {
     color: #000000;
     margin-right: 20px;
     @media (max-width: 800px) {
-        font-size: 12px;
+        font-size: 10px;
     } 
 }
 `;

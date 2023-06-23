@@ -38,7 +38,7 @@ export default function SectionSignIn() {
                     const { data } = response
                     setUserData(data)
                     toast.success('Login efetuado com sucesso!');
-                    navigate("/private")
+                    navigate("/main")
                 })
                 .catch(() => {
                     toast.error("Usuário e/ou senha incorretos");

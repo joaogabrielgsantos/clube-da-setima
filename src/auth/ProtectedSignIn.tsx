@@ -13,7 +13,7 @@ const ProtectedSignIn = () => {
     const isAuth = Auth()
 
     if (isAuth) {
-        return <Navigate to="/private" replace />
+        return <Navigate to="/main" replace />
     } else {
         return <Outlet />
     }
