@@ -1,15 +1,7 @@
+import { SignInBody, SignUpBody } from '../protocols/User';
 import api from './api';
 
-type SignUpBody = {
-    email: string,
-    password: string,
-    key: string
-  };
-  
-  type SignInBody = {
-    email: string,
-    password: string,
-  };
+
   
   
   export function postSignUp(body: SignUpBody) {
