@@ -1,18 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-
-export type Authenticator = {
-  token: string;
-  user: {
-    id: number;
-    email: string;
-    createdAt: string;
-    updatedAt: string;
-    types: {
-      id: number;
-      name: string;
-    };
-  };
-};
+import { Authenticator } from '../protocols/User';
 
 const Auth = (): Authenticator | null => {
   const authenticatorStr = localStorage.getItem('userData');
