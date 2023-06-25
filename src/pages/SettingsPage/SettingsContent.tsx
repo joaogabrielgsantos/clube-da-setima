@@ -38,9 +38,11 @@ export default function SettingsContent() {
         console.log(birthday);
         console.log(formattedBirthday);
         console.log(name);
+    }
 
-
-
+    function handleStateChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const inputValue = e.target.value.toUpperCase();
+        setState(inputValue);
     }
 
     return (
@@ -82,13 +84,14 @@ export default function SettingsContent() {
                     <p>Endereço</p>
                     <div>
                         <RowInputs input1Width="27%" input2Width="70%">
-                            <PrivateInput
+                            <CustomInput
+                                mask="99999-999"
                                 disabled={disable}
-                                type="text"
-                                placeholder="CEP"
                                 value={cep}
                                 onChange={(e) => setCep(e.target.value)}
+                                placeholder="CEP"
                             />
+
                             <PrivateInput
                                 disabled={disable}
                                 type="text"
@@ -105,12 +108,12 @@ export default function SettingsContent() {
                                 value={street}
                                 onChange={(e) => setStreet(e.target.value)}
                             />
-                            <PrivateInput
+                            <CustomInput
+                                mask="aa"
                                 disabled={disable}
-                                type="text"
                                 placeholder="UF"
                                 value={state}
-                                onChange={(e) => setState(e.target.value)}
+                                onChange={handleStateChange}
                             />
                         </RowInputs>
                         <RowInputs input1Width="27%" input2Width="70%">
@@ -173,7 +176,7 @@ const PrivateInput = styled.input`
 type RowInputsProps = {
     input1Width: string;
     input2Width: string;
-  };
+};
 
 const RowInputs = styled.div<RowInputsProps>`
   display: flex;
@@ -183,5 +186,20 @@ const RowInputs = styled.div<RowInputsProps>`
   }
   input:nth-child(2) {
     width: ${(props) => props.input2Width};
+  }
+`;
+
+const CustomInput = styled(InputWithMask)`
+  width: 100%;
+  height: 50px;
+  border: 1px solid #757575;
+  border-radius: 12px;
+  padding-left: 15px;
+  margin-bottom: 13px;
+
+  &::placeholder {
+    font-size: 12px;
+    font-family: Mulish;
+    color: #000000;
   }
 `;
