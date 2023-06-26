@@ -16,7 +16,7 @@ model addresses {
   number        String      @db.VarChar(10)
   neighbourhood String      @db.VarChar(120)
   addressDetail String?      @db.VarChar(120)
-  enrollmentId  Int
+  enrollmentId  Int         @unique
   createdAt     DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   updatedAt     DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   enrollments   enrollments @relation(fields: [enrollmentId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "addresses_fk0")
@@ -27,7 +27,7 @@ model enrollments {
   name      String      @db.VarChar(120)
   nickname  String      @db.VarChar(120)
   birthday  DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
-  userId    Int
+  userId    Int         @unique
   createdAt DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   updatedAt DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   addresses addresses[]

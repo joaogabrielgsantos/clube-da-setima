@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { authValidation } from "../middlewares/auth-middleware";
-import { getEnrollmentByUser } from "../controllers";
+import { getEnrollmentByUser, postCreateOrUpdateEnrollment } from "../controllers";
+import { validateSchema } from "../middlewares/validation-schema-middleware";
+import { createEnrollmentSchema } from "../schemas";
 
 
 
@@ -11,6 +13,7 @@ enrollmentsRoutes
     .all('/*', authValidation)
     .get("/status", (req, res) => res.send("Estamos online!"))
     .get("/", getEnrollmentByUser)
+    .post('/', validateSchema(createEnrollmentSchema), postCreateOrUpdateEnrollment);
     
 
 export { enrollmentsRoutes }

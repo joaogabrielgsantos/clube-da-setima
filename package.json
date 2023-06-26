@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/Clube-da-Setima/clube-da-setima-backend#readme",
   "dependencies": {
+    "@brazilian-utils/brazilian-utils": "^1.0.0-rc.12",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.3",

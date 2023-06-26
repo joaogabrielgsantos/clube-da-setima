@@ -1,18 +1,30 @@
-import { notFoundError } from "../../errors";
-import { Enrollment } from "../../protocols/Enrollment";
+import { CreateEnrollment, CreateOrUpdateAddress, CreateOrUpdateEnrollmentWithAddress, UpdateEnrollment } from "../../protocols/Enrollment";
+import { notFoundError, unauthorizedError } from "../../errors";
 import enrollmentRepository from "../../repositories/enrollment-repository";
 
-type GetEnrollmentWithAddressByUserIdResult = Omit<Enrollment, 'userId' | 'createdAt' | 'updatedAt'>;
-
-async function getEnrollmentWithAddressByUserId(userId: number): Promise<GetEnrollmentWithAddressByUserIdResult> {
+async function getEnrollmentWithAddressByUserId(userId: number) {
     const enrollmentWithAddress = await enrollmentRepository.findWithAddressByUserId(userId);
     if (!enrollmentWithAddress) throw notFoundError();
-    
     return enrollmentWithAddress
-  }
+}
 
-  const enrollmentsService = {
-    getEnrollmentWithAddressByUserId,
-  };
+async function createOrUpdateEnrollmentWithAddress(userId: number, newEnrollment: CreateOrUpdateEnrollmentWithAddress) {
+    const { name, nickname, birthday, addresses } = newEnrollment
+    const cEnrollment: CreateEnrollment = {userId, name, nickname, birthday};
+    const uEnrollment: UpdateEnrollment = {name, nickname, birthday};
+    const address: CreateOrUpdateAddress = {...addresses};
 
-  export default enrollmentsService;
+    const upEnrollment = await enrollmentRepository.upsertEnrollment(userId, cEnrollment, uEnrollment);
+    if (!upEnrollment) throw unauthorizedError()
+    
+    const upAddress = await enrollmentRepository.upsertAddress(upEnrollment.id, address, address);
+    if (!upAddress) throw unauthorizedError()
+
+}
+
+
+const enrollmentsService = {
+    getEnrollmentWithAddressByUserId, createOrUpdateEnrollmentWithAddress
+};
+
+export default enrollmentsService;
