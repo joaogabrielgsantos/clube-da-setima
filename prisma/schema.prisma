@@ -15,7 +15,7 @@ model addresses {
   state         String      @db.VarChar(120)
   number        String      @db.VarChar(10)
   neighbourhood String      @db.VarChar(120)
-  addressDetail String      @db.VarChar(120)
+  addressDetail String?      @db.VarChar(120)
   enrollmentId  Int
   createdAt     DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   updatedAt     DateTime?   @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)

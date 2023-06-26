@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "prisma:seed": "npx prisma db seed"
+    "prisma:seed": "npx prisma db seed",
+    "migration:dev": "npx prisma migrate dev"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
