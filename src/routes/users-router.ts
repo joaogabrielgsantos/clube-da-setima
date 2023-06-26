@@ -9,7 +9,7 @@ const userRoutes = Router()
 
 userRoutes
     .get("/status", (req, res) => res.send("Estamos online!"))
-    .post("/signup", validateSchema(createUserSchema), userSignUp)
-    .post("/signin", userSignIn)
+    .post("/sign-up", validateSchema(createUserSchema), userSignUp)
+    .post("/sign-in", userSignIn)
 
 export { userRoutes }

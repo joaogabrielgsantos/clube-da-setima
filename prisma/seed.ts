@@ -19,11 +19,17 @@ async function main() {
         where: { email: `${emailAdmin}` }
     });
     if (!userAdmin) {
+        const adminType = await prisma.types.findFirst({
+            where:{
+                name: 'admin'
+            }
+        })
+
        const firstUser = await prisma.users.create({
             data: {
                 email: `${emailAdmin}`,
                 password: `${hashPassAdmin}`,
-                typeId: 2,
+                typeId: adminType.id,
                 keyId: null,
             }
         })
@@ -34,6 +40,25 @@ async function main() {
                 userId: firstUser.id
             }
         })
+        await prisma.enrollments.create({
+            data: {
+              name: 'John Doe',
+              nickname: 'johndoe',
+              birthday: new Date(),
+              userId: firstUser.id,
+              addresses: {
+                create: {
+                  cep: '12345-678',
+                  street: 'Example Street',
+                  city: 'Example City',
+                  state: 'Example State',
+                  number: '42',
+                  neighbourhood: 'Example Neighbourhood',
+                  addressDetail: 'Example Address Detail'
+                }
+              }
+            }
+          })
     }
 }
 

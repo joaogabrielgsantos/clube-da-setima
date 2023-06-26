@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "prisma:seed": "npx prisma db seed"
+    "prisma:seed": "npx prisma db seed",
+    "migration:dev": "npx prisma migrate dev"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -32,6 +33,7 @@
   },
   "homepage": "https://github.com/Clube-da-Setima/clube-da-setima-backend#readme",
   "dependencies": {
+    "@brazilian-utils/brazilian-utils": "^1.0.0-rc.12",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.3",

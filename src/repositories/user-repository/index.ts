@@ -44,4 +44,28 @@ async function createSession(token: string, userId: number) {
     })
 }
 
-export default { findAccessKey, findUserByEmail, createNewUser, createSession };
+async function findSessionByToken(token: string) {
+    return prisma.sessions.findFirst({
+        where: {
+            token
+        }
+    })
+}
+
+async function findUserById(id: number) {
+    return prisma.users.findFirst({
+        where: {
+            id
+        },
+        include: {
+            types: {
+                select: {
+                    id: true,
+                    name: true
+                }
+            }
+        }
+    })
+}
+
+export default { findAccessKey, findUserByEmail, createNewUser, createSession, findSessionByToken, findUserById };
