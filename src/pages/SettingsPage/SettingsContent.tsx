@@ -27,14 +27,9 @@ export default function SettingsContent() {
     const { userData } = useUserContext();
 
 
-    function cleanInputs() {
-        setDisable(false);
-        setTextButton("Enviar");
-    }
-
     function handleSignIn(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        const formattedBirthday = dayjs(birthday, "YYYY-MM-DD").format("DD-MM-YYYY");
+        const formattedBirthday = dayjs(birthday, "YYYY-MM-DD").toDate().toISOString();
         console.log(birthday);
         console.log(formattedBirthday);
         console.log(name);
