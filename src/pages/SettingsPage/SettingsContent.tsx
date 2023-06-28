@@ -3,7 +3,7 @@ import { SubmitButton } from "../SignUp/SectionSignUp";
 import dayjs, { Dayjs } from "dayjs";
 import styled from "styled-components";
 import InputWithMask from "../../components/InputWithMask";
-import { DateField, DatePicker } from "@mui/x-date-pickers";
+import { DateField } from "@mui/x-date-pickers";
 import { getEnrollment, saveEnrollment } from "../../services/enrollmentApi";
 import useToken from "../../hooks/useToken";
 import { CreateEnroll } from "../../protocols/Enrollment";
