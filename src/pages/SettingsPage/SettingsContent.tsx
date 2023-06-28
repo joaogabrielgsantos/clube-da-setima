@@ -8,6 +8,7 @@ import { getEnrollment, saveEnrollment } from "../../services/enrollmentApi";
 import useToken from "../../hooks/useToken";
 import { CreateEnroll } from "../../protocols/Enrollment";
 import { toast } from "react-toastify";
+import { getAddressByCep } from "../../services/cepApi";
 
 
 
@@ -29,12 +30,11 @@ export default function SettingsContent() {
 
     const token = useToken();
 
+
     useEffect(() => {
         getEnrollment(token)
             .then((response) => {
-                console.log(response);
                 const newBirthday = dayjs(response.birthday, 'YYYY-MM-DD');
-                console.log(newBirthday);
                 setBirthday(newBirthday);
                 setName(response.name);
                 setNickname(response.nickname);
@@ -51,6 +51,27 @@ export default function SettingsContent() {
 
             })
     }, []);
+
+    function handleCepChange(e: React.ChangeEvent<HTMLInputElement>) {
+        getAddressByCep(cep)
+            .then((response) => {
+                console.log(response);
+                if (!response.cep) {
+                    toast.error("CEP não encontrado");
+                } else {
+                    setStreet(response.logradouro);
+                    setNeighbourhood(response.bairro);
+                    setCity(response.localidade);
+                    setState(response.uf);
+                }
+
+            })
+            .catch((err) => {
+                console.log(err);
+
+            })
+
+    }
 
     async function handleEnrollment(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -75,13 +96,15 @@ export default function SettingsContent() {
             setDisable(true);
             setTextButton("Enviando");
             await saveEnrollment(body, token);
-            toast.success("Cadastro realizado com sucesso");
+            toast.success("Dados atualizados com sucesso");
             setDisable(false);
             setTextButton("Enviar");
 
         } catch (error) {
-            toast.error("Não foi possível realizar cadastrar os dados");
+            toast.error("Não foi possível cadastrar os dados");
             console.log(error);
+            setDisable(false);
+            setTextButton("Enviar");
         }
     }
 
@@ -133,6 +156,7 @@ export default function SettingsContent() {
                                 disabled={disable}
                                 value={cep}
                                 onChange={(e) => setCep(e.target.value)}
+                                onBlur={handleCepChange}
                                 placeholder="CEP"
                             />
                             <PrivateInput
@@ -210,6 +234,9 @@ const FormEnroll = styled.form`
   padding: 60px;
   display: flex;
   flex-direction: column;
+    input:invalid {
+    border-color: red;
+    }
   @media (max-width: 800px) {
     padding: 0;
   }
@@ -237,17 +264,18 @@ type RowInputsProps = {
 };
 
 const RowInputs = styled.div<RowInputsProps>`
-  display: flex;
-  justify-content: space-between;
-  input:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    input:nth-child(1) {
     width: ${(props) => props.input1Width};
-  }
-  input:nth-child(2) {
+    }
+    input:nth-child(2) {
     width: ${(props) => props.input2Width};
-  }
-  input:nth-child(3) {
+    }
+    input:nth-child(3) {
     width: ${(props) => props.input3Width};
-  }
+    }
+    
 `;
 
 const CustomInput = styled(InputWithMask)`
