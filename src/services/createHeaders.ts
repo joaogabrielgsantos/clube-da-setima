@@ -1,9 +1,5 @@
-import useToken from "../hooks/useToken";
-
-
-const token = useToken()
-
-export default function createHeaders() {
+export default function createHeaders(token:string | undefined) {
+    
     const config = {
         headers: {
             Authorization: `Bearer ${token}`

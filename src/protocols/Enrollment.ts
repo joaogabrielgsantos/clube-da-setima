@@ -6,7 +6,7 @@ export type Enrollment = {
     userId?: number;
     createdAt?: string;
     updatedAt?: string;
-    addresses?: Address[];
+    addresses?: [Address];
   };
 
   export type Address = {
@@ -21,4 +21,16 @@ export type Enrollment = {
     enrollmentId?: number;
     createdAt?: string;
     updatedAt?: string;
+  };
+
+
+  export type CreateEnroll = {
+    id?: number;
+    name: string;
+    nickname: string;
+    birthday?: string;
+    userId?: number;
+    createdAt?: string;
+    updatedAt?: string;
+    addresses?: Address;
   };

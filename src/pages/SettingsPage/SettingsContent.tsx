@@ -1,21 +1,24 @@
-import { useState } from "react";
-import { useUserContext } from "../../contexts/UserContext";
+import { useEffect, useState } from "react";
 import { SubmitButton } from "../SignUp/SectionSignUp";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import styled from "styled-components";
-import ReactInputMask from "react-input-mask";
 import InputWithMask from "../../components/InputWithMask";
 import { DateField, DatePicker } from "@mui/x-date-pickers";
+import { getEnrollment, saveEnrollment } from "../../services/enrollmentApi";
+import useToken from "../../hooks/useToken";
+import { CreateEnroll } from "../../protocols/Enrollment";
+import { toast } from "react-toastify";
 
 
 
 export default function SettingsContent() {
     const [name, setName] = useState("");
     const [nickname, setNickname] = useState("");
-    const [birthday, setBirthday] = useState("");
+    const [birthday, setBirthday] = useState<Dayjs | null>(null);
 
     const [cep, setCep] = useState("");
     const [street, setStreet] = useState("");
+    const [neighbourhood, setNeighbourhood] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [numberAddress, setNumberAddress] = useState("");
@@ -24,15 +27,62 @@ export default function SettingsContent() {
     const [disable, setDisable] = useState(false);
     const [textButton, setTextButton] = useState("Enviar");
 
-    const { userData } = useUserContext();
+    const token = useToken();
 
+    useEffect(() => {
+        getEnrollment(token)
+            .then((response) => {
+                console.log(response);
+                const newBirthday = dayjs(response.birthday, 'YYYY-MM-DD');
+                console.log(newBirthday);
+                setBirthday(newBirthday);
+                setName(response.name);
+                setNickname(response.nickname);
+                setCep(response.addresses ? response.addresses[0].cep : "");
+                setStreet(response.addresses ? response.addresses[0].street : "");
+                setNeighbourhood(response.addresses ? response.addresses[0].neighbourhood : "");
+                setCity(response.addresses ? response.addresses[0].city : "");
+                setState(response.addresses ? response.addresses[0].state : "");
+                setNumberAddress(response.addresses ? response.addresses[0].number : "");
+                setAddressDetail(response.addresses ? response.addresses[0].addressDetail : "");
+            })
+            .catch((err) => {
+                console.log(err);
 
-    function handleSignIn(e: React.FormEvent<HTMLFormElement>) {
+            })
+    }, []);
+
+    async function handleEnrollment(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         const formattedBirthday = dayjs(birthday, "YYYY-MM-DD").toDate().toISOString();
-        console.log(birthday);
-        console.log(formattedBirthday);
-        console.log(name);
+
+        const body: CreateEnroll = {
+            name,
+            nickname,
+            birthday: formattedBirthday,
+            addresses:
+            {
+                cep,
+                street,
+                city,
+                state,
+                number: numberAddress,
+                neighbourhood,
+                addressDetail
+            }
+        };
+        try {
+            setDisable(true);
+            setTextButton("Enviando");
+            await saveEnrollment(body, token);
+            toast.success("Cadastro realizado com sucesso");
+            setDisable(false);
+            setTextButton("Enviar");
+
+        } catch (error) {
+            toast.error("Não foi possível realizar cadastrar os dados");
+            console.log(error);
+        }
     }
 
     function handleStateChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -43,20 +93,20 @@ export default function SettingsContent() {
     return (
         <>
             <PrivateContainer>
-                <FormEnroll onSubmit={handleSignIn}>
+                <FormEnroll onSubmit={handleEnrollment}>
                     <p>Dados pessoais</p>
                     <div>
                         <PrivateInput
-                            className="setting-input"
+                            required
                             disabled={disable}
                             type="text"
                             placeholder="Nome completo"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
-                        <RowInputs input1Width="57%" input2Width="20%">
+                        <RowInputs input1Width="52%" input2Width="25%">
                             <PrivateInput
-                                className="setting-input"
+                                required
                                 disabled={disable}
                                 type="text"
                                 placeholder="Nickname"
@@ -64,39 +114,49 @@ export default function SettingsContent() {
                                 onChange={(e) => setNickname(e.target.value)}
                             />
                             <DateField
+                                required
                                 label="Data de Nascimento"
                                 format="DD-MM-YYYY"
-                                sx={{ height: "55px", width: "40%" }}
+                                sx={{ height: "55px", width: "45%" }}
                                 variant="standard"
-                                value={birthday ? dayjs(birthday, "YYYY-MM-DD").toDate() : null}
-                                onChange={(date: Date | null) =>
-                                    setBirthday(date ? dayjs(date).format("YYYY-MM-DD") : "")
-                                }
+                                value={birthday}
+                                onChange={(e) => setBirthday(e)}
                             />
-
                         </RowInputs>
                     </div>
                     <p>Endereço</p>
                     <div>
-                        <RowInputs input1Width="27%" input2Width="70%">
+                        <RowInputs input1Width="27%" input2Width="35%" input3Width="32%">
                             <CustomInput
+                                required
                                 mask="99999-999"
                                 disabled={disable}
                                 value={cep}
                                 onChange={(e) => setCep(e.target.value)}
                                 placeholder="CEP"
                             />
+                            <PrivateInput
+                                required
+                                disabled={disable}
+                                type="text"
+                                placeholder="Bairro"
+                                value={neighbourhood}
+                                onChange={(e) => setNeighbourhood(e.target.value)}
+                            />
 
                             <PrivateInput
+                                required
                                 disabled={disable}
                                 type="text"
                                 placeholder="Cidade"
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
                             />
+
                         </RowInputs>
                         <RowInputs input1Width="77%" input2Width="20%">
                             <PrivateInput
+                                required
                                 disabled={disable}
                                 type="text"
                                 placeholder="Logradouro"
@@ -104,6 +164,7 @@ export default function SettingsContent() {
                                 onChange={(e) => setStreet(e.target.value)}
                             />
                             <CustomInput
+                                required
                                 mask="aa"
                                 disabled={disable}
                                 placeholder="UF"
@@ -113,6 +174,7 @@ export default function SettingsContent() {
                         </RowInputs>
                         <RowInputs input1Width="27%" input2Width="70%">
                             <PrivateInput
+                                required
                                 disabled={disable}
                                 type="text"
                                 placeholder="Número"
@@ -170,7 +232,8 @@ const PrivateInput = styled.input`
 
 type RowInputsProps = {
     input1Width: string;
-    input2Width: string;
+    input2Width?: string;
+    input3Width?: string;
 };
 
 const RowInputs = styled.div<RowInputsProps>`
@@ -181,6 +244,9 @@ const RowInputs = styled.div<RowInputsProps>`
   }
   input:nth-child(2) {
     width: ${(props) => props.input2Width};
+  }
+  input:nth-child(3) {
+    width: ${(props) => props.input3Width};
   }
 `;
 
