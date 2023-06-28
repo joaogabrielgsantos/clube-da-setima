@@ -10,7 +10,7 @@ export async function userSignUp(req: Request, res: Response, next: NextFunction
     try {
         const user = await userService.createUser(email, password, key);
         return res.sendStatus(StatusCodes.CREATED)
-    } catch (error) {
+    } catch (error) {        
         next(error);
     }
 }

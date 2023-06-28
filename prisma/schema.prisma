@@ -66,7 +66,7 @@ model users {
   id                      Int           @id(map: "users_pk") @default(autoincrement())
   email                   String        @unique @db.VarChar(120)
   password                String        @db.VarChar(120)
-  typeId                  Int           @default(1)
+  typeId                  Int           
   keyId                   Int?
   createdAt               DateTime?     @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)
   updatedAt               DateTime?     @default(dbgenerated("(now() AT TIME ZONE 'BRT'::text)")) @db.Timestamp(6)

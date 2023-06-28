@@ -25,12 +25,21 @@ async function findUserByEmail(email: string) {
     })
 }
 
-async function createNewUser(email: string, keyId: number, hashPassword: string) {
+async function findRegularType (){
+    return await prisma.types.findFirst({
+        where:{
+            name: 'regular'
+        }
+    })
+}
+
+async function createNewUser(email: string, keyId: number, hashPassword: string, typeId: number) {
     return prisma.users.create({
         data: {
             email: email,
             password: hashPassword,
             keyId: keyId,
+            typeId
         }
     })
 }
@@ -68,4 +77,4 @@ async function findUserById(id: number) {
     })
 }
 
-export default { findAccessKey, findUserByEmail, createNewUser, createSession, findSessionByToken, findUserById };
+export default { findAccessKey, findUserByEmail, findRegularType, createNewUser, createSession, findSessionByToken, findUserById };
