@@ -56,8 +56,8 @@ export default function SectionSignIn() {
 
                     <form onSubmit={handleSignIn}>
                         <Inputs>
-                            <input disabled={disable} type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
-                            <input disabled={disable} type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
+                            <input required disabled={disable} type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
+                            <input required disabled={disable} type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
                             <SubmitButton disabled={disable} width="326px" widthResp="326px" >{textButton}</SubmitButton >
                         </Inputs>
                     </form>

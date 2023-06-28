@@ -1,7 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { Authenticator } from "./ProtectedRoutes";
-
-
+import { Authenticator } from "../protocols/User";
 
 const Auth = (): Authenticator | null => {
     const authenticatorStr = localStorage.getItem('userData');

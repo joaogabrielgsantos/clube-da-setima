@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import UserContext from "./UserContext";
-import { Authenticator } from "../auth/ProtectedRoutes";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { Authenticator } from "../protocols/User";
 
 type UserProviderProps = {
     children: ReactNode;

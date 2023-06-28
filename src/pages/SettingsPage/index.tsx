@@ -1,11 +1,12 @@
-import Navbar from "../../components/Navbar"
+import Navbar from "../../patterns/Navbar"
+import SettingsContent from "./SettingsContent"
 
 function SettingsPage() {
 
     return (
         <>
             <Navbar />
-            <h1>Configurações</h1>
+            <SettingsContent />
         </>
     )
 }
