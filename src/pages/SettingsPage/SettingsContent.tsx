@@ -52,7 +52,7 @@ export default function SettingsContent() {
             })
     }, []);
 
-    function handleCepChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleCepChange() {
         getAddressByCep(cep)
             .then((response) => {
                 console.log(response);
