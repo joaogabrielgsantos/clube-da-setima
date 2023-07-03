@@ -5,7 +5,7 @@ dotenv.config();
 const hashPassAdmin = process.env.HASH_PASSWORD_ADMIN
 const emailAdmin = process.env.ADMIN_EMAIL
 
-async function main() {
+export async function main() {
     const type = await prisma.types.findFirst();
     if (!type) {
         await prisma.types.createMany({
